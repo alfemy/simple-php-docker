@@ -1,4 +1,3 @@
-<img src="http://url.to.file.which/not.exist" onerror=alert(document.cookie);>
 <?php
 
 echo "Hello, World from Docker ruuning at ECS!<br>";
