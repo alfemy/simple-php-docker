@@ -1,28 +1,25 @@
 <?php
+$file = isset($_GET["file"]) ? htmlspecialchars($_GET["file"]) : false;
+$mountPatch = isset($_GET["mountPatch"]) ?   htmlspecialchars($_GET["mountPatch"]) : '/mnt/data/';
 
-echo "Hello, World from Docker ruuning at !<br>";
-echo '<img src="https://www.docker.com/sites/default/files/horizontal.png"><br>';
-shell_exec('touch /mnt/data/file');
-shell_exec("head -c 30M </dev/urandom >/mnt/data/myfile");
+if ($file) {
+    $filePatch = $mountPatch . $file;
+    echo "<p>Creating file ${filePatch}...</p>";
 
+    shell_exec("touch ${filePatch}");
+} else {
+    echo '<p>Temporary file name for creating in EFS mount was not passed.
+          You can pass it via <a href="?file=blahblah">?file=blahblah</a></p>';
+}
 
+echo '<h1>whoami:</h1>';
+$output = shell_exec('whoami');
+echo "<pre>${output}</pre>";
 
-echo '<h1>Show contains of /mnt/data/</h1>';
-$lsOutput = shell_exec('ls -lh /mnt/data');
-echo "<pre>$lsOutput</pre>";
+echo "<h1>${mountPatch}:</h1>";
+$output = shell_exec("ls -lh ${mountPatch}");
+echo "<pre>${output}</pre>";
 
-shell_exec('touch /tmp/testfile');
-
-echo '<h1>Show contains of /tmp/</h1>';
-$lsOutput = shell_exec('ls -lh /tmp/');
-echo "<pre>$lsOutput</pre>";
-
-
-echo '<h1>Show contains of /mnt/</h1>';
-$lsOutput = shell_exec('ls -lh /mnt/');
-echo "<pre>$lsOutput</pre>";
-
-echo "<h1>Show mounts inside of container:</h1>";
+echo "<h1>Mounts:</h1>";
 $output = shell_exec('mount');
-echo "<pre>$output</pre>";
-?>
+echo "<pre>${output}</pre>";
