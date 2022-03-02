@@ -12,11 +12,13 @@ if ($file) {
           You can pass it via <a href="?file=blahblah">?file=blahblah</a></p>';
 }
 
+echo '<p>You can change path for showing like here  <a href="?mountPatch=/mnt/data">?mountPatch=/mnt/data</a></p>';
+
 echo '<h1>whoami:</h1>';
 $output = shell_exec('whoami');
 echo "<pre>${output}</pre>";
 
-echo "<h1>${mountPatch}:</h1>";
+echo "<h1>ls ${mountPatch}:</h1>";
 $output = shell_exec("ls -lh ${mountPatch}");
 echo "<pre>${output}</pre>";
 
