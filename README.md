@@ -1,5 +1,6 @@
 # How it Works
 
+
 Docker builds an image containing the application in src/ and all of its dependencies by using the Dockerfile contained in this repository.
 
 The Dockerfile tells docker to use the [official PHP Docker image](https://hub.docker.com/_/php/) as the parent image.
